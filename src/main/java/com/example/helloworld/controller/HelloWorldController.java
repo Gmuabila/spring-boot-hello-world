@@ -5,6 +5,7 @@ import com.example.helloworld.dto.UpdateStatusDTO;
 import com.example.helloworld.services.CaseworkTaskServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class HelloWorldController {
 
 
     @PostMapping("/createTask")
-    public ResponseEntity<CaseTask> createTask(@RequestBody CaseTask newTask){
+    public ResponseEntity<CaseTask> createTask(@RequestBody @Validated CaseTask newTask){
         CaseTask task = caseworkTaskServices.createTask(newTask);
         return ResponseEntity.ok(task);
     }
@@ -46,9 +47,8 @@ public class HelloWorldController {
     }
 
     @DeleteMapping("/deletetask/{idIn}")
-    public void deleteTask(@PathVariable("idIn") Integer idIn){
-        caseworkTaskServices.deleteTask(idIn);
+    public CaseTask deleteTask(@PathVariable("idIn") Integer idIn){
+        return caseworkTaskServices.deleteTask(idIn);
     }
-
 
 }

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class CaseTask {
@@ -31,6 +32,19 @@ public class CaseTask {
     }
 
     public CaseTask() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CaseTask caseTask = (CaseTask) o;
+        return id.equals(caseTask.id) && title.equals(caseTask.title) && Objects.equals(description, caseTask.description) && status.equals(caseTask.status) && Objects.equals(due, caseTask.due);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, status, due);
     }
 
     public Integer getId() {
@@ -64,6 +78,17 @@ public class CaseTask {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "CaseTask{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                ", due=" + due +
+                '}';
     }
 
     @NonNull
